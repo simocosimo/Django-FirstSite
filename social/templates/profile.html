@@ -1,4 +1,10 @@
-{% block title %} {{ user.username }}'s Profile {% endblock %}
+{% block title %}
+{% if not home %}
+  {{ user.username }}'s Profile
+{% else %}
+  {{ user.username}}'s Homepage
+{% endif %}
+{% endblock %}
 
 {% block content %}
 <h2>{{ user.username }}</h2>
@@ -8,8 +14,26 @@
   <li>Bio: {{ user.profile.bio }}</li>
   <li>Birth Date: {{ user.profile.date_birth }}</li>
 </ul>
+
+<h2>Following: {{ n_following }}</h2>
+<ul>
+{% for u in following %}
+  <li><a href="/profile/{{ u.pk }}/">{{ u.username }}</a><span> - {{ u.profile.bio }}</span></li>
+{% endfor %}
+</ul>
+<br>
+<h2>Followers: {{ n_followers }}</h2>
+<ul>
+{% for u in followers %}
+  <li><a href="/profile/{{ u.pk }}/">{{ u.username }}</a><span> - {{ u.profile.bio }}</span></li>
+{% endfor %}
+</ul>
+
+{% if not home %}
 {%  url 'homepage' as  homeurl %}
 <a href="{{ homeurl }}">Home</a>
+{% endif %}
+
 {% url 'logout' as logouturl %}
 <a href="{{ logouturl }}">Logout</a>
 {% endblock %}
