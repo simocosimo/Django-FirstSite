@@ -1,0 +1,15 @@
+{% block title %} {{ user.username }}'s Profile {% endblock %}
+
+{% block content %}
+<h2>{{ user.username }}</h2>
+<ul>
+  <li>Username: {{ user.username }}</li>
+  <li>Full Name: {{ user.first_name }} {{user.last_name}}</li>
+  <li>Bio: {{ user.profile.bio }}</li>
+  <li>Birth Date: {{ user.profile.date_birth }}</li>
+</ul>
+{%  url 'homepage' as  homeurl %}
+<a href="{{ homeurl }}">Home</a>
+{% url 'logout' as logouturl %}
+<a href="{{ logouturl }}">Logout</a>
+{% endblock %}

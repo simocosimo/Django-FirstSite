@@ -1,0 +1,11 @@
+
+{% block title %} Home {% endblock %}
+
+<h2>{{ active.username }}</h2>
+<ul>
+{% for u in following %}
+  <li><a href="/profile/{{ u.pk }}/">{{ u.username }}</a><span> - {{ u.profile.bio }}</span></li>
+{% endfor %}
+</ul>
+{% url 'logout' as logouturl %}
+<a href="{{ logouturl }}">Logout</a>
