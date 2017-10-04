@@ -1,0 +1,23 @@
+{% block content %}
+{% if not list %}
+DESC
+{% for m in merch %}
+<h2> {{ m.name }} </h2>
+<ul>
+    <li><p> {{ m.wear_type }} </p></li>
+    <li><p> {{ m.design }} </p></li>
+    <li><p> {{ m.description }} </p></li>
+</ul>
+{% endfor %}
+{% else %}
+LIST
+<ul>
+{% for m in merch %}
+<li><a href='{{ m.pk }}/'> {{ m.name }} </a></li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{%  url 'homepage' as  homeurl %}
+<a href="{{ homeurl }}">Home</a>
+{% endblock %}

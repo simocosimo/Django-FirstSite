@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
+from merch.models import Merch
 
 
 # Relationship codes/choices
@@ -25,6 +26,7 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.get_username()
 
+    # Relatationship functions
     def add_relationship(self, person, status):
         relationship, created = Relationship.objects.get_or_create(
             from_person=self,
@@ -55,6 +57,11 @@ class Profile(models.Model):
     def get_followers(self):
         return self.get_related_to(RELATIONSHIP_FOLLOWING)
 
+    # Merch functions
+    def get_merchPossession(self):
+        return MerchPossession.objects.filter(
+            user=self)
+
 
 # this triggers when a new user is created by User model
 @receiver(post_save, sender=User)
@@ -78,3 +85,13 @@ class Relationship(models.Model):
     def __str__(self):
         return '%s now following %s' % (self.from_person.user.get_username(),
                                         self.to_person.user.get_username())
+
+
+class MerchPossession(models.Model):
+    user = models.ForeignKey(Profile, related_name='user_possessing')
+    merch = models.ForeignKey(Merch, related_name='merch_possessed')
+    linked_date = models.DateField(default=timezone.now, blank=False)
+
+    def __str__(self):
+        return '%s now possess %s' % (self.user.user.get_username(),
+                                      self.merch.name)

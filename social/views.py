@@ -23,6 +23,7 @@ def homepage(request, user_id, active=False):
 
     uf = []
     ufs = []
+    merch = user.profile.get_merchPossession()
     for f in followings:
         uf.append(User.objects.get(pk=f.user_id))
     for fs in followers:
@@ -31,4 +32,6 @@ def homepage(request, user_id, active=False):
     context['followers'] = ufs
     context['n_following'] = len(uf)
     context['n_followers'] = len(ufs)
+    context['merch'] = merch
+    context['n_merch'] = len(merch)
     return render(request, 'profile.html', context)

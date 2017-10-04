@@ -28,7 +28,13 @@
   <li><a href="/profile/{{ u.pk }}/">{{ u.username }}</a><span> - {{ u.profile.bio }}</span></li>
 {% endfor %}
 </ul>
-
+<br>
+<h2>Merch: {{ n_merch }}</h2>
+<ul>
+{% for m in merch %}
+<li><a href='{{ m.merch.wear_type }}/{{ m.merch.id }}/'> {{ m.merch.name }} </a></li>
+{% endfor %}
+</ul>
 {% if not home %}
 {%  url 'homepage' as  homeurl %}
 <a href="{{ homeurl }}">Home</a>
