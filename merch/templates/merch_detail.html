@@ -9,10 +9,14 @@ DESC
     <li><p> Desc: {{ m.description }} </p></li>
 </ul>
 
+{% if not user.is_anonymous %}
 {% if owned %}
 <a href="{% url 'merch:remove_merch' user.pk m.pk %}">Unlink</a>
 {% else %}
 <a href="{% url 'merch:add_merch' user.pk m.pk %}">Buy!</a>
+{% endif %}
+{% else %}
+<a href="{% url 'login' %}">Log In to Buy!</a>
 {% endif %}
 {% endfor %}
 

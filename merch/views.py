@@ -25,9 +25,10 @@ def merch_detail(request, type, merch_id=None):
     context['list'] = False
     if len(merch) > 1:
         context['list'] = True
-    for m in user.profile.get_merchPossession():
-        if merch[0] == m.merch:
-            context['owned'] = True
+    if not user.is_anonymous:
+        for m in user.profile.get_merchPossession():
+            if merch[0] == m.merch:
+                context['owned'] = True
     return render(request, 'merch_detail.html', context)
 
 
