@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from .models import RELATIONSHIP_FOLLOWING
 
 
 # Create your views here.
@@ -39,3 +40,19 @@ def homepage(request, user_id, active=False):
     context['merch'] = merch
     context['n_merch'] = len(merch)
     return render(request, 'profile.html', context)
+
+
+@login_required
+def follow(request, user_id):
+    user = request.user.profile
+    prf = User.objects.get(pk=user_id).profile
+    user.add_relationship(prf, RELATIONSHIP_FOLLOWING)
+    return redirect('profile', user_id=int(user_id))
+
+
+@login_required
+def unfollow(request, user_id):
+    user = request.user.profile
+    prf = User.objects.get(pk=user_id).profile
+    user.remove_relationship(prf, RELATIONSHIP_FOLLOWING)
+    return redirect('profile', user_id=int(user_id))
