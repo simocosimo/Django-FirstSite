@@ -32,16 +32,16 @@
 <h2>Merch: {{ n_merch }}</h2>
 <ul>
 {% for m in merch %}
-<li><a href='{{ m.merch.wear_type }}/{{ m.merch.id }}/'> {{ m.merch.name }} </a></li>
+<li><a href="{% url 'merch:merch_detail' m.merch.wear_type m.merch.pk %}"> {{ m.merch.name }} </a></li>
 {% endfor %}
 </ul>
 {% if not home %}
 {% if amifollowing %}
-<a href="{% url 'unfollow' user.pk %}">Unfollow</a>
+<a href="{% url 'social:unfollow' user.pk %}">Unfollow</a>
 {% else %}
-<a href="{% url 'follow' user.pk %}">Follow</a>
+<a href="{% url 'social:follow' user.pk %}">Follow</a>
 {% endif %}
-{%  url 'homepage' as  homeurl %}
+{%  url 'social:homepage' as  homeurl %}
 <a href="{{ homeurl }}">Home</a>
 {% endif %}
 

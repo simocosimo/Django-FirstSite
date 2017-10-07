@@ -14,7 +14,7 @@ def homepage(request, user_id, active=False):
     context['user'] = user
     if not active:
         if int(user_id) == request.user.pk:
-            return redirect('homepage')
+            return redirect('social:homepage')
         prf = User.objects.get(pk=user_id)
         context['user'] = prf
         followings = prf.profile.get_following()

@@ -58,6 +58,18 @@ class Profile(models.Model):
         return self.get_related_to(RELATIONSHIP_FOLLOWING)
 
     # Merch functions
+    def add_merchPossession(self, m):
+        MerchPossession.objects.get_or_create(
+            user = self,
+            merch = m)
+        return
+
+    def remove_merchPossession(self, m):
+        MerchPossession.objects.filter(
+            user = self,
+            merch = m).delete()
+        return
+
     def get_merchPossession(self):
         return MerchPossession.objects.filter(
             user=self)

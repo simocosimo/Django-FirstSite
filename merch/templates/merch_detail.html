@@ -8,7 +8,14 @@ DESC
     <li><p> Design: {{ m.get_design_display }} </p></li>
     <li><p> Desc: {{ m.description }} </p></li>
 </ul>
+
+{% if owned %}
+<a href="{% url 'merch:remove_merch' user.pk m.pk %}">Unlink</a>
+{% else %}
+<a href="{% url 'merch:add_merch' user.pk m.pk %}">Buy!</a>
+{% endif %}
 {% endfor %}
+
 {% else %}
 LIST
 <ul>
@@ -18,6 +25,6 @@ LIST
 </ul>
 {% endif %}
 
-{%  url 'homepage' as  homeurl %}
+{% url 'social:homepage' as homeurl %}
 <a href="{{ homeurl }}">Home</a>
 {% endblock %}
