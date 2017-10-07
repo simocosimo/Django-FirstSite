@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 def homepage(request, user_id, active=False):
     context = {}
     context['home'] = active
+    context['amifollowing'] = False
     user = request.user
     context['user'] = user
     if not active:
@@ -17,13 +18,16 @@ def homepage(request, user_id, active=False):
         context['user'] = prf
         followings = prf.profile.get_following()
         followers = prf.profile.get_followers()
+        merch = prf.profile.get_merchPossession()
+        if user.profile in followers:
+            context['amifollowing'] = True
     else:
         followings = user.profile.get_following()
         followers = user.profile.get_followers()
+        merch = user.profile.get_merchPossession()
 
     uf = []
     ufs = []
-    merch = user.profile.get_merchPossession()
     for f in followings:
         uf.append(User.objects.get(pk=f.user_id))
     for fs in followers:

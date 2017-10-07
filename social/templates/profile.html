@@ -36,6 +36,11 @@
 {% endfor %}
 </ul>
 {% if not home %}
+{% if amifollowing %}
+<a href="#">Unfollow</a>
+{% else %}
+<a href="#">Follow</a>
+{% endif %}
 {%  url 'homepage' as  homeurl %}
 <a href="{{ homeurl }}">Home</a>
 {% endif %}
