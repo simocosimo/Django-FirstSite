@@ -4,9 +4,9 @@ DESC
 {% for m in merch %}
 <h2> {{ m.name }} </h2>
 <ul>
-    <li><p> {{ m.wear_type }} </p></li>
-    <li><p> {{ m.design }} </p></li>
-    <li><p> {{ m.description }} </p></li>
+    <li><p> Wear type: {{ m.get_wear_type_display }} </p></li>
+    <li><p> Design: {{ m.get_design_display }} </p></li>
+    <li><p> Desc: {{ m.description }} </p></li>
 </ul>
 {% endfor %}
 {% else %}
