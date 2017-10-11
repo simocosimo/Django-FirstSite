@@ -47,7 +47,7 @@ def follow(request, user_id):
     user = request.user.profile
     prf = User.objects.get(pk=user_id).profile
     user.add_relationship(prf, RELATIONSHIP_FOLLOWING)
-    return redirect('profile', user_id=int(user_id))
+    return redirect('social:profile', user_id=int(user_id))
 
 
 @login_required
@@ -55,4 +55,4 @@ def unfollow(request, user_id):
     user = request.user.profile
     prf = User.objects.get(pk=user_id).profile
     user.remove_relationship(prf, RELATIONSHIP_FOLLOWING)
-    return redirect('profile', user_id=int(user_id))
+    return redirect('social:profile', user_id=int(user_id))
